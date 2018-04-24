@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+<body>
+    <script>
+        var userScore = 0;
+        var computerScore = 0;
+
+        function computerPlay() {
+            // Will randomly return either 'ROCK', 'PAPER', or 'SCISSORS'.
+            var min = 0;
+            var max = 2;
+            var RanNum = Math.floor(Math.random() * (max - min + 1)) + min; // The maximum and minimum are inclusive
+        
+            switch(RanNum) {
+                case 0:
+                    return computerSelection = "ROCK";
+                    break;
+                case 1:
+                    return computerSelection = "PAPER";
+                    break;
+                case 2:
+                    return computerSelection = "SCISSORS";
+            }
+        }
+
+        function playRound() {
+            // Will return a string that declares the winner of the round like so: "You Lose! PAPER beats ROCK."
+            if (playerSelection == computerSelection) {
+                console.log("It was a draw! You both picked " + playerSelection + ". No points awarded.");
+
+            } else if (playerSelection == "ROCK" && computerSelection == "SCISSORS") {
+                ++userScore;
+                console.log("You win! " + playerSelection + " beats " + computerSelection);
+
+            } else if (playerSelection == "PAPER" && computerSelection == "ROCK") {
+                ++userScore;
+                console.log("You win! " + playerSelection + " beats " + computerSelection);
+
+            } else if (playerSelection == "SCISSORS" && computerSelection == "PAPER") {
+                ++userScore;
+                console.log("You win! " + playerSelection + " beats " + computerSelection);
+
+            } else {
+                ++computerScore;
+                console.log("You lose! " + playerSelection + " loses to " + computerSelection);
+            }
+        }
+
+        function game() {
+            var round = 1;
+            // Play a 5 round game that keeps score and reports a winner or loser at the end
+            for (i = 0; i < 5; i++) {
+                console.log("Round " + round +":");
+                playerSelection = prompt("Please enter either ROCK, PAPER, or SCISSORS: ").toUpperCase(); // User input converted to uppercase to ingnore case
+                computerPlay();
+                playRound();
+                console.log("Score: " + userScore + ' : ' + computerScore);
+                ++round;
+            }
+             
+            if (userScore == computerScore) {
+                return "It was a draw! The final score was " + userScore + ' : ' + computerScore;
+
+            } else if (userScore > computerScore) {
+                return "You win! The final score was " + userScore + ' : ' + computerScore;
+
+            } else {
+                return "You lose! The final score was " + userScore + ' : ' + computerScore;
+            }
+        }
+    </script>
+</body>    
+</html>

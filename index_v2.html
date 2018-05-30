@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Rock, Paper, Scissors</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
+    </head>
+<body>
+    <div class="intro">Rock, Paper, Scissors</div>
+    <div class="selection">
+        <div class="card" id="rock">
+            <img src="images/rock.svg" height="100" width="100">
+            <span class="type">Rock</span>
+        </div>
+        <div class="card" id="paper">
+            <img src="images/paper.svg" height="100" width="100">
+            <span class="type">Paper</span>
+        </div>
+        <div class="card" id="scissors">
+            <img src="images/scissors.svg" height="100" width="100">
+            <span class="type">Scissors</span>
+        </div>  
+    </div>
+    <div class="pick">Click on your choice to begin.</div>
+    <div class="footer">
+        <div class="blf">
+                <span>Player: </span>
+                <span class="score" id="player">0</span>
+        </div>
+        <div class="brf">
+                <span>Computer: </span>
+                <span class="score" id="computer">0</span>
+        </div>
+        <div id="cf"></div>
+    </div>
+
+    <script>
+        var userScore = 0;
+        var computerScore = 0;
+
+        function computerPlay() {
+            // Will randomly return either 'ROCK', 'PAPER', or 'SCISSORS'.
+            var min = 0;
+            var max = 2;
+            var RanNum = Math.floor(Math.random() * (max - min + 1)) + min; // The maximum and minimum are inclusive
+        
+            switch(RanNum) {
+                case 0:
+                    return computerSelection = "ROCK";
+                    break;
+                case 1:
+                    return computerSelection = "PAPER";
+                    break;
+                case 2:
+                    return computerSelection = "SCISSORS";
+            }
+        }
+
+        function playRound() {
+            // Will return a string that declares the winner of the round like so: "You Lose! PAPER beats ROCK."
+            if (playerSelection == computerSelection) {
+                document.getElementById('cf').innerHTML = "It was a draw! You both picked " + playerSelection + ". No points awarded.";
+
+            } else if (playerSelection == "ROCK" && computerSelection == "SCISSORS") {
+                ++userScore;
+                document.getElementById('cf').innerHTML = "You win! " + playerSelection + " beats " + computerSelection;
+
+            } else if (playerSelection == "PAPER" && computerSelection == "ROCK") {
+                ++userScore;
+                document.getElementById('cf').innerHTML = "You win! " + playerSelection + " beats " + computerSelection;
+
+            } else if (playerSelection == "SCISSORS" && computerSelection == "PAPER") {
+                ++userScore;
+                document.getElementById('cf').innerHTML = "You win! " + playerSelection + " beats " + computerSelection;
+
+            } else {
+                ++computerScore;
+                document.getElementById('cf').innerHTML = "You lose! " + playerSelection + " loses to " + computerSelection;
+            }
+        }
+
+        function game(selector) {
+
+            playerSelection = selector.path[1].id.toUpperCase(); // User input converted to uppercase to ignore case
+            computerPlay();
+            playRound();
+            document.getElementById('player').innerHTML = userScore;
+            document.getElementById('computer').innerHTML = computerScore;
+        }
+
+        const buttons = document.querySelectorAll('div[class="card"');
+
+        buttons.forEach(button => {
+
+            button.addEventListener('click', game);
+        });
+    </script>
+</body>    
+</html>
